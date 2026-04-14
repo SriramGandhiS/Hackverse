@@ -1,0 +1,11 @@
+{
+  "name": "psna-portal-root",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "cd smart-placement-os && npm run dev",
+    "build": "cd smart-placement-os && npm run build",
+    "start": "cd smart-placement-os && npm start",
+    "lint": "cd smart-placement-os && npm run lint"
+  }
+}
