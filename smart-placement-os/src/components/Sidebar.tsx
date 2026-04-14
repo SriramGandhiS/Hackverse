@@ -6,10 +6,13 @@ import {
   LayoutDashboard, 
   Building2, 
   UserCircle, 
-  Settings, 
   LogOut,
   GraduationCap,
-  ArrowRight
+  ArrowRight,
+  BarChart2,
+  Brain,
+  FileText,
+  GitBranch
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -17,7 +20,10 @@ const items = [
   { name: "COMMAND CENTER", icon: LayoutDashboard, href: "/dashboard/student" },
   { name: "RECRUITERS", icon: Building2, href: "/dashboard/student/companies" },
   { name: "PORTFOLIO", icon: UserCircle, href: "/dashboard/student/profile" },
-  { name: "SYSTEM CONFIG", icon: Settings, href: "/dashboard/student/settings" },
+  { name: "PRS SCORE", icon: BarChart2, href: "/dashboard/student/prs" },
+  { name: "DAILY QUIZ", icon: Brain, href: "/dashboard/student/quiz" },
+  { name: "RESUME AI", icon: FileText, href: "/dashboard/student/resume" },
+  { name: "GITHUB", icon: GitBranch, href: "/dashboard/student/github" },
 ];
 
 export function Sidebar() {
