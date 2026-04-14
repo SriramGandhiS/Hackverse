@@ -12,7 +12,6 @@ build/
 
 # Sensitive Data (Excluded as per user request)
 backend.gs
-*.json
 APPS_SCRIPT_FINAL.txt
 
 # Environment
@@ -27,3 +26,5 @@ yarn-error.log*
 # Misc
 .DS_Store
 Thumbs.db
+
+.vercel

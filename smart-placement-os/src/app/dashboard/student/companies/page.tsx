@@ -209,6 +209,7 @@ function Modal({ children, onClose, title }: { children: React.ReactNode, onClos
 }
 
 function CompanyDetailView({ student, company }: { student: Student, company: Company }) {
+  const router = useRouter();
   const match = calculateMatch(student, company);
   return (
     <div className="space-y-12">

@@ -403,7 +403,7 @@ export default function InterviewPage() {
         {/* Main Content Area */}
         <div className="lg:col-span-8 flex flex-col min-h-0 border-r border-white/5 bg-[#080808]">
             {/* AI Question Section - MOVED TO TOP FOR BETTER VISIBILITY */}
-            <div className="px-12 py-10 bg-gradient-to-b from-[#0066FF]/10 to-transparent">
+            <div className="px-6 md:px-12 py-6 md:py-10 bg-gradient-to-b from-[#0066FF]/10 to-transparent">
                     <MessageSquare className="w-4 h-4 text-[#0066FF] fill-current" />
                     <span className="text-[11px] font-black uppercase tracking-[0.4em] text-white">Interviewer Prompt</span>
                 <h2 className="text-xl md:text-4xl font-black leading-tight tracking-tight mb-4 animate-in fade-in duration-700 max-w-4xl text-white shadow-[#00FF85]/10 drop-shadow-2xl">
@@ -418,7 +418,7 @@ export default function InterviewPage() {
             </div>
 
             {/* Video Viewport */}
-            <div className="px-8 pb-12 relative group pointer-events-none">
+            <div className="px-4 md:px-8 pb-8 md:pb-12 relative group pointer-events-none">
                 <div className={cn(
                     "w-full aspect-video rounded-[2.5rem] overflow-hidden border-2 transition-all duration-500 relative bg-black shadow-2xl pointer-events-auto max-w-5xl mx-auto",
                     isRecording ? "border-[#00FF85] shadow-[0_0_60px_rgba(0,255,133,0.15)] scale-[0.99]" : "border-white/10"
@@ -494,9 +494,9 @@ export default function InterviewPage() {
             </div>
 
             {/* Hardware Controls - SLIM DOCK */}
-            <div className="px-8 pb-8 flex items-center justify-between gap-6 opacity-60 hover:opacity-100 transition-opacity">
-                <div className="flex items-center gap-6">
-                    <div className="flex flex-col gap-1">
+            <div className="px-4 md:px-8 pb-6 md:pb-8 pt-4 flex flex-col md:flex-row items-center justify-between gap-6 border-t border-white/5 bg-black/60 backdrop-blur-3xl sticky bottom-0 z-[50]">
+                <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 md:gap-8 w-full md:w-auto">
+                    <div className="flex flex-col gap-1 w-full md:w-auto">
                         <span className="text-[7px] font-black uppercase tracking-widest text-white/40 px-1">Selected Input</span>
                         <select 
                             value={selectedMic} 
@@ -521,7 +521,7 @@ export default function InterviewPage() {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-1 max-w-xs overflow-hidden">
+                <div className="hidden md:flex flex-col gap-1 max-w-xs overflow-hidden">
                     <span className="text-[7px] font-black uppercase tracking-widest text-white/40 px-1 text-right">System Logs</span>
                     <p className="text-[8px] font-mono text-[#00FF85]/60 truncate italic">{systemLogs[systemLogs.length-1]}</p>
                 </div>
@@ -537,7 +537,7 @@ export default function InterviewPage() {
         </div>
 
         {/* Right Sidebar: Real-Time Analysis */}
-        <div className="lg:col-span-4 flex flex-col bg-black/40 backdrop-blur-md p-8 gap-8 border-l border-white/5">
+        <div className="lg:col-span-4 flex flex-col bg-black/40 backdrop-blur-md p-6 md:p-8 gap-8 border-l border-white/5">
             <div className="space-y-4">
                 <h2 className="text-2xl font-black uppercase tracking-tighter italic text-[#00FF85]">Analysis Hub</h2>
                 <p className="text-[10px] text-white/50 font-black uppercase tracking-[0.3em] border-b border-white/10 pb-4">Live Technical Breakdown</p>
