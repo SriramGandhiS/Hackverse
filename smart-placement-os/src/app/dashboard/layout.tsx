@@ -1,7 +1,7 @@
 "use client";
 
 import { Sidebar } from "@/components/Sidebar";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { LogOut, GraduationCap } from "lucide-react";
 import { useEffect, useState } from "react";
 import { fetchFromGAS } from "@/lib/api";
@@ -65,6 +65,17 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const isInterview = pathname?.includes("/interview");
+
+  if (isInterview) {
+    return (
+      <div className="fixed inset-0 z-[99999] h-screen w-screen bg-[#050505] overflow-hidden pointer-events-auto">
+        {children}
+      </div>
+    );
+  }
+
   return (
     <div className="flex h-screen bg-white overflow-hidden">
       <Sidebar />

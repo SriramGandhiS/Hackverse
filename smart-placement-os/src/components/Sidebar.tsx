@@ -12,7 +12,8 @@ import {
   BarChart2,
   Brain,
   FileText,
-  GitBranch
+  GitBranch,
+  Mic
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -24,6 +25,7 @@ const items = [
   { name: "DAILY QUIZ", icon: Brain, href: "/dashboard/student/quiz" },
   { name: "RESUME AI", icon: FileText, href: "/dashboard/student/resume" },
   { name: "GITHUB", icon: GitBranch, href: "/dashboard/student/github" },
+  { name: "MOCK INTERVIEW", icon: Mic, href: "/dashboard/student/interview" },
 ];
 
 export function Sidebar() {

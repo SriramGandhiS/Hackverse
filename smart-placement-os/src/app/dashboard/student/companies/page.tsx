@@ -67,9 +67,18 @@ export default function CompaniesPage() {
     <div className="space-y-12 pb-24 p-8 bg-white min-h-screen text-black font-sans selection:bg-[#0066FF]/20">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-12 border-b-4 border-black/5">
-        <div>
-          <h1 className="text-6xl font-black tracking-tighter leading-none mb-4 uppercase">OFFICIAL<br /><span className="text-[#FF8A00]">RECRUITERS</span></h1>
-          <p className="text-xl text-black/40 font-bold uppercase tracking-widest">Active Drive Database • 2026 Batch</p>
+        <div className="flex flex-col gap-6">
+          <button 
+                onClick={() => router.push("/dashboard/student")}
+                className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] text-[#0066FF] hover:gap-5 transition-all w-fit group"
+          >
+              <ArrowRight className="w-4 h-4 rotate-180" />
+              BACK TO COMMAND CENTER
+          </button>
+          <div>
+            <h1 className="text-6xl font-black tracking-tighter leading-none mb-4 uppercase">OFFICIAL<br /><span className="text-[#FF8A00]">RECRUITERS</span></h1>
+            <p className="text-xl text-black/40 font-bold uppercase tracking-widest">Active Drive Database • 2026 Batch</p>
+          </div>
         </div>
         
         <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
@@ -266,7 +275,16 @@ function CompanyDetailView({ student, company }: { student: Student, company: Co
         </div>
       </div>
 
-      <div className="pt-8">
+      <div className="pt-8 flex flex-col gap-4">
+        {company.name.toLowerCase().includes("zoho") && (
+          <button 
+            onClick={() => router.push(`/dashboard/student/interview?difficulty=Hard&company=Zoho`)}
+            className="w-full py-8 rounded-[3.5rem] font-black text-xl tracking-[0.4em] uppercase italic transition-all shadow-2xl bg-[#00FF85] text-black hover:scale-105 active:scale-95 flex items-center justify-center gap-4"
+          >
+            <Zap className="w-6 h-6 fill-current" />
+            TAKE ZOHO LEVEL MOCK
+          </button>
+        )}
         <button className={cn(
           "w-full py-8 rounded-[3.5rem] font-black text-xl tracking-[0.4em] uppercase italic transition-all shadow-2xl",
           match.isEligible 
