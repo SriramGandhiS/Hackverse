@@ -376,7 +376,7 @@ export default function InterviewPage() {
               <div className="flex items-center gap-2">
                  <div className="flex gap-[2px]">
                     {[1,2,3,4,5].map(i => (
-                        <div key={i} className={cn("w-3 h-1 rounded-full", parseInt(averageScore) >= i*2 ? "bg-[#00FF85]" : "bg-white/10")} />
+                        <div key={i} className={cn("w-3 h-1 rounded-full", parseInt(String(averageScore)) >= i*2 ? "bg-[#00FF85]" : "bg-white/10")} />
                     ))}
                  </div>
                  <span className="text-sm font-black text-[#00FF85]">{averageScore}/10</span>
