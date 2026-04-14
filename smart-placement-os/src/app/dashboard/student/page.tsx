@@ -196,6 +196,8 @@ export default function StudentDashboard() {
             </div>
           </div>
 
+          <CodingStats studentId={student.id} />
+
           <div className="bg-[#f4f4f5] p-10 rounded-[3.5rem]">
              <h3 className="text-xl font-black uppercase tracking-widest mb-10 flex items-center justify-between">
                LINKS <Globe className="w-6 h-6 text-[#0066FF]" />
@@ -351,6 +353,109 @@ function CompanyDetailView({ student, company, isApplying, isApplied, onApply }:
       >
         {isApplied ? "APPLICATION SENT" : isApplying ? "PROCESSING..." : match.isEligible ? "INITIATE APPLICATION" : "TRACK OPPORTUNITY"}
       </button>
+    </div>
+  );
+}
+
+function CodingStats({ studentId }: { studentId: string }) {
+  const [username, setUsername] = useState(() => {
+    if (typeof window !== "undefined") return localStorage.getItem(`leetcode_${studentId}`) || "";
+    return "";
+  });
+  const [isEditing, setIsEditing] = useState(!username);
+  const [stats, setStats] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (username && !isEditing) {
+      setLoading(true);
+      fetch(`https://leetcode-stats-api.herokuapp.com/${username}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === "success") setStats(data);
+          else setStats(null);
+        })
+        .catch(() => setStats(null))
+        .finally(() => setLoading(false));
+    }
+  }, [username, isEditing]);
+
+  const saveUsername = (e: React.FormEvent) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const input = form.elements.namedItem("username") as HTMLInputElement;
+    const val = input.value.trim();
+    if (val) {
+      localStorage.setItem(`leetcode_${studentId}`, val);
+      setUsername(val);
+      setIsEditing(false);
+    }
+  };
+
+  return (
+    <div className="bg-zinc-900 text-white p-10 rounded-[3rem] shadow-2xl shadow-zinc-900/10">
+      <div className="flex items-center justify-between mb-10">
+        <h3 className="text-xl font-black uppercase tracking-widest flex items-center gap-2">
+           <Code className="w-6 h-6 text-[#FF8A00]" /> LOGIC
+        </h3>
+        {!isEditing && (
+          <button onClick={() => setIsEditing(true)} className="text-[10px] font-black uppercase tracking-widest text-[#FF8A00] hover:text-white transition-colors">
+            EDIT
+          </button>
+        )}
+      </div>
+
+      {isEditing ? (
+        <form onSubmit={saveUsername} className="flex flex-col gap-4">
+          <p className="text-[10px] font-black tracking-widest uppercase text-white/40">Connect LeetCode Profile</p>
+          <input 
+            name="username" 
+            defaultValue={username} 
+            placeholder="LeetCode Username"
+            className="w-full px-5 py-4 rounded-2xl bg-white/5 text-sm font-black outline-none focus:ring-2 focus:ring-[#FF8A00] border border-white/10"
+          />
+          <button type="submit" className="px-5 py-4 rounded-2xl bg-[#FF8A00] text-black text-[10px] font-black uppercase tracking-widest w-full hover:bg-white transition-colors">
+            SYNC CODING STATS
+          </button>
+        </form>
+      ) : loading ? (
+        <div className="h-32 flex items-center justify-center animate-pulse text-[#FF8A00] text-xs font-black uppercase tracking-[0.3em]">
+          INTEGRATING...
+        </div>
+      ) : stats ? (
+        <div className="space-y-6">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-white/5 border border-white/5 rounded-[2rem] p-5">
+              <div className="text-[9px] font-black uppercase tracking-widest text-[#00ADD8] mb-1">EASY</div>
+              <div className="text-3xl font-black tracking-tighter shrink-0">{stats.easySolved}</div>
+            </div>
+            <div className="bg-white/5 border border-white/5 rounded-[2rem] p-5">
+              <div className="text-[9px] font-black uppercase tracking-widest text-[#FF8A00] mb-1">MEDIUM</div>
+              <div className="text-3xl font-black tracking-tighter shrink-0">{stats.mediumSolved}</div>
+            </div>
+            <div className="bg-white/5 border border-white/5 rounded-[2rem] p-5">
+              <div className="text-[9px] font-black uppercase tracking-widest text-[#ef4444] mb-1">HARD</div>
+              <div className="text-3xl font-black tracking-tighter shrink-0">{stats.hardSolved}</div>
+            </div>
+            <div className="bg-white/5 border border-white/5 rounded-[2rem] p-5 flex flex-col justify-between">
+              <div className="text-[9px] font-black uppercase tracking-widest text-white/40 mb-1">RANK</div>
+              <div className="text-xl truncate font-black tracking-tighter shrink-0">#{stats.ranking}</div>
+            </div>
+          </div>
+          <a href={`https://leetcode.com/${username}`} target="_blank" rel="noreferrer" className="flex items-center justify-between w-full py-5 px-6 bg-[#FF8A00]/10 text-[#FF8A00] hover:bg-[#FF8A00] hover:text-black rounded-2xl text-[10px] font-black tracking-widest uppercase transition-all group">
+            LEETCODE PROFILE
+            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+          </a>
+        </div>
+      ) : (
+        <div className="text-[10px] font-black uppercase tracking-widest text-red-500 bg-red-500/10 p-5 rounded-2xl">API Error / User Not Found</div>
+      )}
+
+      {/* HackerRank Quick Link placeholder */}
+      <a href="https://hackerrank.com" target="_blank" rel="noreferrer" className="mt-4 flex items-center justify-between p-5 rounded-2xl bg-[#00ea64]/10 hover:bg-[#00ea64] text-[#00ea64] hover:text-black transition-all group">
+         <span className="text-[10px] font-black uppercase tracking-widest">HACKERRANK</span>
+         <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+      </a>
     </div>
   );
 }
