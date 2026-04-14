@@ -17,7 +17,8 @@ import {
   ChevronRight,
   ArrowUpRight
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, ReactNode } from "react";
+import React from "react";
 import { fetchFromGAS } from "@/lib/api";
 import { Student } from "@/lib/matching";
 import Link from "next/link";
@@ -56,7 +57,7 @@ export default function ProfilePage() {
               </div>
               <p className="text-2xl text-black/40 font-bold uppercase tracking-[0.2em] mb-8">{student.dept} • BATCH OF 2026</p>
               
-              <div className="flex flex-wrap justify-center md:justify-start gap-8">
+              <div className="flex wrap justify-center md:justify-start gap-8">
                  <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-black/5 flex items-center justify-center text-[#0066FF]"><Mail className="w-5 h-5" /></div>
                     <span className="text-xs font-black uppercase tracking-widest">{student.name.toLowerCase().replace(' ', '.')}@psnacet.edu</span>
@@ -97,20 +98,24 @@ export default function ProfilePage() {
            <div className="bg-black p-10 rounded-[3.5rem] text-white">
               <h3 className="text-xs font-black uppercase tracking-[0.4em] text-white/40 mb-10 italic">External Connections</h3>
               <div className="space-y-4">
-                 <Link href={student.githubLink} target="_blank" className="flex items-center justify-between p-6 rounded-[2rem] bg-white/5 hover:bg-[#0066FF] transition-all group">
-                    <div className="flex items-center gap-4">
-                       <Globe className="w-6 h-6 text-[#0066FF] group-hover:text-white" />
-                       <span className="text-[10px] font-black uppercase tracking-widest">GITHUB PORTAL</span>
-                    </div>
-                    <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
-                 </Link>
-                 <Link href={student.resume_link} target="_blank" className="flex items-center justify-between p-6 rounded-[2rem] bg-white/5 hover:bg-[#FF8A00] transition-all group">
-                    <div className="flex items-center gap-4">
-                       <ExternalLink className="w-6 h-6 text-[#FF8A00] group-hover:text-white" />
-                       <span className="text-[10px] font-black uppercase tracking-widest">VERIFIED RESUME</span>
-                    </div>
-                    <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
-                 </Link>
+                  {student.githubLink && (
+                    <Link href={student.githubLink} target="_blank" className="flex items-center justify-between p-6 rounded-[2rem] bg-white/5 hover:bg-[#0066FF] transition-all group">
+                       <div className="flex items-center gap-4">
+                          <Globe className="w-6 h-6 text-[#0066FF] group-hover:text-white" />
+                          <span className="text-[10px] font-black uppercase tracking-widest">GITHUB PORTAL</span>
+                       </div>
+                       <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
+                    </Link>
+                  )}
+                  {student.resume_link && (
+                    <Link href={student.resume_link} target="_blank" className="flex items-center justify-between p-6 rounded-[2rem] bg-white/5 hover:bg-[#FF8A00] transition-all group">
+                       <div className="flex items-center gap-4">
+                          <ExternalLink className="w-6 h-6 text-[#FF8A00] group-hover:text-white" />
+                          <span className="text-[10px] font-black uppercase tracking-widest">VERIFIED RESUME</span>
+                       </div>
+                       <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
+                    </Link>
+                  )}
               </div>
            </div>
         </div>
@@ -121,7 +126,7 @@ export default function ProfilePage() {
                <h2 className="text-4xl font-black tracking-tighter uppercase italic mb-10 flex items-center gap-4">
                  <Code className="w-10 h-10 text-[#0066FF]" /> TECHNICAL <span className="text-outline border-black text-black">STACK</span>
                </h2>
-               <div className="flex flex-wrap gap-4">
+               <div className="flex wrap gap-4">
                   {student.skills.map((skill, i) => (
                     <motion.div 
                       key={skill}
@@ -150,7 +155,7 @@ export default function ProfilePage() {
                   <SkillItem 
                     icon={<Star />} 
                     title="PATENTS" 
-                    value={student.patents.toString()} 
+                    value={(student as any).patents?.toString() || "0"} 
                     desc="Research & Innovation patents filed." 
                   />
                </div>
@@ -175,7 +180,7 @@ export default function ProfilePage() {
   );
 }
 
-function SkillItem({ icon, title, value, desc }: { icon: React.ReactNode, title: string, value: string, desc: string }) {
+function SkillItem({ icon, title, value, desc }: { icon: ReactNode, title: string, value: string, desc: string }) {
   return (
     <div className="bg-[#f4f4f5] p-10 rounded-[3rem] hover:bg-[#0066FF] hover:text-white transition-all group">
        <div className="flex items-center justify-between mb-8">
