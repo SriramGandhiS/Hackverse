@@ -1,6 +1,0 @@
-{
-  "buildCommand": "cd smart-placement-os && npm install && npm run build",
-  "outputDirectory": "smart-placement-os/.next",
-  "installCommand": "cd smart-placement-os && npm install",
-  "framework": "nextjs"
-}

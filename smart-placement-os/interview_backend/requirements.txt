@@ -1,6 +1,0 @@
-fastapi
-uvicorn
-faster-whisper
-pyttsx3
-requests
-python-multipart

@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: #000000;
+
+  --color-card: #ffffff;
+  --color-card-foreground: #000000;
+
+  --id-blue: #0066FF;
+  --id-orange: #FF8A00;
+
+  --color-primary: #0066FF;
+  --color-primary-foreground: #ffffff;
+
+  --color-secondary: #FF8A00;
+  --color-secondary-foreground: #ffffff;
+
+  --color-muted: #f4f4f5;
+  --color-muted-foreground: #71717a;
+
+  --color-accent: #FF8A00;
+  --color-accent-foreground: #ffffff;
+
+  --color-border: #e4e4e7;
+  --color-input: #e4e4e7;
+  --color-ring: #0066FF;
+
+  --radius-lg: 1.5rem;
+  --radius-md: 1rem;
+  --radius-sm: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground selection:bg-primary/20;
+  }
+}
+
+@layer utilities {
+  .marquee-container {
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+
+  .marquee-content {
+    display: flex;
+    gap: 4rem;
+    width: max-content;
+    animation: marquee 20s linear infinite;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .jobia-card {
+    @apply rounded-[2.5rem] p-8 transition-all duration-500 hover:scale-[1.02];
+  }
+
+  .text-outline {
+    -webkit-text-stroke: 1px currentColor;
+    color: transparent;
+  }
+}
+
+@utility glass-card {
+  @apply bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl;
+}
+
+@utility dark-section {
+  @apply bg-black text-white;
+}
